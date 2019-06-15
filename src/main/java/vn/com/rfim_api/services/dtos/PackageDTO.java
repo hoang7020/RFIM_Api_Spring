@@ -1,25 +1,20 @@
-package vn.com.rfim_api.persistences.entities;
+package vn.com.rfim_api.services.dtos;
 
-import javax.persistence.*;
+public class PackageDTO {
 
-@Entity
-@Table(name = "Packaged")
-public class Packaged {
 
-    @Id
     private String packagedId;
-
     private String packagedName;
-
     private int quantity;
+    private String productId;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
+    public PackageDTO() {
+    }
 
-    @OneToOne
-    @JoinColumn(name = "cellId")
-    private Cell cell;
+    public PackageDTO(String packagedId, String productId) {
+        this.packagedId = packagedId;
+        this.productId = productId;
+    }
 
 
     public String getPackagedId() {
@@ -46,19 +41,11 @@ public class Packaged {
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Cell getCell() {
-        return cell;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

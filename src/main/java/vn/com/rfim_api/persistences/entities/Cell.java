@@ -1,6 +1,8 @@
 package vn.com.rfim_api.persistences.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Cell")
@@ -19,8 +21,8 @@ public class Cell {
     @JoinColumn(name = "floorId", nullable = false)
     private Floor floor;
 
-    @OneToOne(mappedBy = "cell")
-    private Packaged packaged;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cell")
+    private List<Package> aPackages = new ArrayList<>();
 
     public String getCellId() {
         return cellId;
@@ -62,11 +64,11 @@ public class Cell {
         this.floor = floor;
     }
 
-    public Packaged getPackaged() {
-        return packaged;
+    public List<Package> getaPackages() {
+        return aPackages;
     }
 
-    public void setPackaged(Packaged packaged) {
-        this.packaged = packaged;
+    public void setaPackages(List<Package> aPackages) {
+        this.aPackages = aPackages;
     }
 }

@@ -21,16 +21,8 @@ public class Product {
     @JoinColumn(name = "categoryId", nullable = false)
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private List<Packaged> listPackaged = new ArrayList<>();
-
-    public List<Packaged> getListPackaged() {
-        return listPackaged;
-    }
-
-    public void setListPackaged(List<Packaged> listPackaged) {
-        this.listPackaged = listPackaged;
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Package> aPackages = new ArrayList<>();
 
     public String getProductId() {
         return productId;
@@ -64,4 +56,11 @@ public class Product {
         this.category = category;
     }
 
+    public List<Package> getaPackages() {
+        return aPackages;
+    }
+
+    public void setaPackages(List<Package> aPackages) {
+        this.aPackages = aPackages;
+    }
 }

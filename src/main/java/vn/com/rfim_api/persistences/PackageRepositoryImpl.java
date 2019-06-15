@@ -5,14 +5,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import vn.com.rfim_api.persistences.entities.Cell;
-import vn.com.rfim_api.persistences.entities.Packaged;
+import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.entities.Product;
-import vn.com.rfim_api.persistences.repositories.PackagedRepository;
+import vn.com.rfim_api.persistences.repositories.PackageRepository;
 
 @Repository
 @Transactional(rollbackFor = Exception.class)
-public class PackagedRepositoryImpl implements PackagedRepository {
+public class PackageRepositoryImpl implements PackageRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,7 +20,7 @@ public class PackagedRepositoryImpl implements PackagedRepository {
     @Override
     public boolean registerPackage(String packagedid, String productId) {
         Session session = this.sessionFactory.getCurrentSession();
-//        NativeQuery query = session.createSQLQuery("insert into Packaged(packagedId, quantity, productId) values(:packagedId, :quantity, :productId)");
+//        NativeQuery query = session.createSQLQuery("insert into Package(packagedId, quantity, productId) values(:packagedId, :quantity, :productId)");
 //        query.setParameter("packagedId", packagedid);
 //        query.setParameter("quantity", 0);
 //        query.setParameter("productId", productId);
@@ -31,13 +30,11 @@ public class PackagedRepositoryImpl implements PackagedRepository {
 //        }
 //        return false;
 
-        Packaged dto = new Packaged();
-        dto.setPackagedId(packagedid);
-        Product p = session.load(Product.class, productId);
-        dto.setProduct(p);
-        Cell c = session.load(Cell.class, "A-1-1");
-        dto.setCell(c);
-        session.save(dto);
+        Package pac = new Package();
+        pac.setPackageId(packagedid);
+        Product product = session.load(Product.class, productId);
+        pac.setProduct(product);
+        session.save(pac);
         return true;
     }
 }
