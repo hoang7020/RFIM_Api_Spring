@@ -1,15 +1,15 @@
-package vn.com.rfim_api.services.response;
+package vn.com.rfim_api.services.jsonobjects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FloorData {
+public class CategoryData {
 
     private Object data;
 
-    public FloorData() {
+    public CategoryData() {
     }
 
-    public FloorData(Object data) {
+    public CategoryData(Object data) {
         this.data = data;
     }
 
@@ -17,9 +17,8 @@ public class FloorData {
         return data;
     }
 
-    @JsonProperty("floors")
+    @JsonProperty("categroies")
     public void setData(Object data) {
         this.data = data;
     }
-
 }

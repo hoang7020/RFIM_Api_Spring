@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vn.com.rfim_api.persistences.repositories.BoxRepository;
-import vn.com.rfim_api.services.response.ResultResponse;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 @Service
 public class BoxService {
@@ -13,16 +13,15 @@ public class BoxService {
     @Autowired
     private BoxRepository context;
 
-    //Create new box and map with package
-    public ResponseEntity addBox(String boxId, String packageId) {
+    public ResponseEntity stockOutBox(String boxId) {
         ResultResponse response = new ResultResponse();
-        boolean result = context.addBox(boxId, packageId);
-        if (result) {
-            response.setMessage("Register Box Successful!");
+        if (context.isExit(boxId)) {
+            context.deleteBox(boxId);
+            response.setMessage("Stock Out Box Successfull.");
             return new ResponseEntity(response, HttpStatus.OK);
         } else {
-            response.setMessage("Register Box Fail!");
-            return new ResponseEntity(response, HttpStatus.NOT_ACCEPTABLE);
+            response.setMessage("No Box Found.");
+            return new ResponseEntity(response, HttpStatus.NOT_FOUND);
         }
     }
 

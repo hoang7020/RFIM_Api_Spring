@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import vn.com.rfim_api.services.ShelfService;
 import vn.com.rfim_api.services.dtos.ShelfDTO;
-import vn.com.rfim_api.services.response.ResultResponse;
-import vn.com.rfim_api.services.response.ShelfData;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
+import vn.com.rfim_api.services.jsonobjects.ShelfData;
 
 import java.util.List;
 

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 import vn.com.rfim_api.services.dtos.CellDTO;
-import vn.com.rfim_api.services.response.CellData;
-import vn.com.rfim_api.services.response.ResultResponse;
+import vn.com.rfim_api.services.jsonobjects.CellData;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 

@@ -15,10 +15,9 @@ public class BoxController {
     @Autowired
     private BoxService service;
 
-    //Create new box by using rfid id and map with package
-    @PostMapping(value = "/boxes/register")
-    public ResponseEntity registerBox(@RequestBody BoxDTO box) {
-        return service.addBox(box.getBoxId(), box.getPackageId());
+    @PostMapping(value = "/boxes/stockout")
+    public ResponseEntity stockOutBox(@RequestBody BoxDTO boxDTO) {
+        return service.stockOutBox(boxDTO.getBoxId());
     }
 
 }

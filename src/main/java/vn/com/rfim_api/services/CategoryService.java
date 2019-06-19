@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.CategoryRepository;
 import vn.com.rfim_api.services.dtos.CategoryDTO;
-import vn.com.rfim_api.services.response.CategoryData;
-import vn.com.rfim_api.services.response.ResultResponse;
+import vn.com.rfim_api.services.jsonobjects.CategoryData;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 

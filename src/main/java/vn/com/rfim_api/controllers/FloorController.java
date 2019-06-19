@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vn.com.rfim_api.services.FloorService;
 import vn.com.rfim_api.services.dtos.FloorDTO;
-import vn.com.rfim_api.services.response.FloorData;
-import vn.com.rfim_api.services.response.ResultResponse;
+import vn.com.rfim_api.services.jsonobjects.FloorData;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 

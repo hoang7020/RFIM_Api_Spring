@@ -1,6 +1,4 @@
-package vn.com.rfim_api.services.response;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package vn.com.rfim_api.services.jsonobjects;
 
 public class ResultResponse {
    private String message;

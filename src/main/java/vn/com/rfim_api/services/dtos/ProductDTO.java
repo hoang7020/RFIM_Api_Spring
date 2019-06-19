@@ -9,9 +9,6 @@ public class ProductDTO {
     private String description;
 
     private String categoryId;
-
-    private String cellId;
-
     public ProductDTO() {
     }
 
@@ -45,13 +42,5 @@ public class ProductDTO {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getCellId() {
-        return cellId;
-    }
-
-    public void setCellId(String cellId) {
-        this.cellId = cellId;
     }
 }

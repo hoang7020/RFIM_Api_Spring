@@ -1,14 +1,15 @@
-package vn.com.rfim_api.services.response;
+package vn.com.rfim_api.services.jsonobjects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ShelfData {
+public class CellData {
+
     private Object data;
 
-    public ShelfData() {
+    public CellData() {
     }
 
-    public ShelfData(Object data) {
+    public CellData(Object data) {
         this.data = data;
     }
 
@@ -16,7 +17,7 @@ public class ShelfData {
         return data;
     }
 
-    @JsonProperty("shelves")
+    @JsonProperty("cells")
     public void setData(Object data) {
         this.data = data;
     }
