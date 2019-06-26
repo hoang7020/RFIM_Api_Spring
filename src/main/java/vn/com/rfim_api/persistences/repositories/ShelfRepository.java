@@ -8,4 +8,6 @@ import java.util.List;
 public interface ShelfRepository {
 
     public List<Shelf> getAll();
+
+    public Shelf getByFloorId(String floorId);
 }

@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import vn.com.rfim_api.persistences.entities.Cell;
 import vn.com.rfim_api.persistences.entities.Floor;
 import vn.com.rfim_api.persistences.repositories.FloorRepository;
 
@@ -25,6 +26,7 @@ public class FloorRepositoryImpl implements FloorRepository {
         return floors;
     }
 
+    //get floor by shelf id
     @Override
     public List<Floor> getByShelfId(String shelfId) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -32,5 +34,14 @@ public class FloorRepositoryImpl implements FloorRepository {
         query.setParameter("id", shelfId);
         List<Floor> floors = query.getResultList();
         return floors;
+    }
+
+    //get floor by cell id
+    @Override
+    public Floor getByCellId(String cellId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Cell cell = session.get(Cell.class, cellId);
+        Floor floor = cell.getFloor();
+        return floor;
     }
 }

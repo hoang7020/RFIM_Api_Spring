@@ -9,4 +9,6 @@ public interface CellRepository {
     public List<Cell> getByFloorId(String floorId);
 
     public boolean registerCell(String cellId, String cellRfid);
+
+    public Cell getByCellRfid(String rfid);
 }

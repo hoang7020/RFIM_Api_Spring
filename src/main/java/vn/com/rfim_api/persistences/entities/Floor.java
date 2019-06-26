@@ -11,10 +11,6 @@ public class Floor {
     @Id
     private String floorId;
 
-    private int floorNo;
-
-    private String description;
-
     @ManyToOne
     @JoinColumn(name = "shelfId", nullable = false)
     private Shelf shelf;
@@ -30,27 +26,19 @@ public class Floor {
         this.floorId = floorId;
     }
 
-    public int getFloorNo() {
-        return floorNo;
-    }
-
-    public void setFloorNo(int floorNo) {
-        this.floorNo = floorNo;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Shelf getShelf() {
         return shelf;
     }
 
     public void setShelf(Shelf shelf) {
         this.shelf = shelf;
+    }
+
+    public List<Cell> getListCells() {
+        return listCells;
+    }
+
+    public void setListCells(List<Cell> listCells) {
+        this.listCells = listCells;
     }
 }

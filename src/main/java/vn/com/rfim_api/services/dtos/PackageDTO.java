@@ -3,7 +3,7 @@ package vn.com.rfim_api.services.dtos;
 public class PackageDTO {
 
 
-    private String packageId;
+    private String packageRfid;
     private String packageName;
     private int quantity;
     private String productId;
@@ -12,20 +12,20 @@ public class PackageDTO {
     public PackageDTO() {
     }
 
-    public PackageDTO(String packageId, String packageName, int quantity, String productId, String cellId) {
-        this.packageId = packageId;
+    public PackageDTO(String packageRfid, String packageName, int quantity, String productId, String cellId) {
+        this.packageRfid = packageRfid;
         this.packageName = packageName;
         this.quantity = quantity;
         this.productId = productId;
         this.cellId = cellId;
     }
 
-    public String getPackageId() {
-        return packageId;
+    public String getPackageRfid() {
+        return packageRfid;
     }
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
+    public void setPackageRfid(String packageRfid) {
+        this.packageRfid = packageRfid;
     }
 
     public String getPackageName() {

@@ -25,7 +25,7 @@ public class PackageRepositoryImpl implements PackageRepository {
     public boolean addPackage(String packagedRfid, String productId) {
         Session session = this.sessionFactory.getCurrentSession();
         Package pac = new Package();
-        pac.setPackageId(packagedRfid);
+        pac.setPackageRfid(packagedRfid);
         Product product = session.load(Product.class, productId);
         pac.setProduct(product);
         session.save(pac);
@@ -33,12 +33,13 @@ public class PackageRepositoryImpl implements PackageRepository {
     }
 
     //Map package with cell id
+    //Stock in package
     @Override
-    public boolean updatePackageCellId(String packageId, String cellId) {
+    public boolean updatePackageCellId(String packageRfid, String cellId) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("update Package set cell.cellId = :cellId where packageId = :packageId");
+        Query query = session.createQuery("update Package set cell.cellId = :cellId where packageRfid = :packageRfid");
         query.setParameter("cellId", cellId);
-        query.setParameter("packageId", packageId);
+        query.setParameter("packageRfid", packageRfid);
         int result = query.executeUpdate();
         if (result > 0) {
             return true;
@@ -72,13 +73,24 @@ public class PackageRepositoryImpl implements PackageRepository {
 
     //Check package is empty
     @Override
-    public boolean isEmpty(String packageId) {
+    public boolean isEmpty(String packageRfid) {
         Session session = this.sessionFactory.getCurrentSession();
-        Package pac = session.load(Package.class, packageId);
-        List<Box> boxes = pac.getBoxes();
-        if (boxes.isEmpty()) {
+        Package pac = session.get(Package.class, packageRfid);
+        int result = pac.getBoxes().size();
+        if (result == 0) {
             return true;
         }
         return false;
     }
+
+    @Override
+    public boolean isStockIn(String packageRfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Package pac = session.get(Package.class, packageRfid);
+        if (pac.getCell() != null) {
+            return true;
+        }
+        return false;
+    }
+
 }

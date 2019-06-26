@@ -5,7 +5,7 @@ import java.util.List;
 public class PackageRegisterRequest {
     private String productId;
     private String packageRfid;
-    private List<String> productRfids;
+    private List<String> boxRfids;
 
     public String getProductId() {
         return productId;
@@ -23,11 +23,11 @@ public class PackageRegisterRequest {
         this.packageRfid = packageRfid;
     }
 
-    public List<String> getProductRfids() {
-        return productRfids;
+    public List<String> getBoxRfids() {
+        return boxRfids;
     }
 
-    public void setProductRfids(List<String> productRfids) {
-        this.productRfids = productRfids;
+    public void setBoxRfids(List<String> boxRfids) {
+        this.boxRfids = boxRfids;
     }
 }

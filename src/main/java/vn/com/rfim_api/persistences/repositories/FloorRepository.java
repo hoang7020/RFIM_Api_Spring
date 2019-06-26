@@ -9,4 +9,6 @@ public interface FloorRepository {
     public List<Floor> getAll();
 
     public List<Floor> getByShelfId(String shelfId);
+
+    public Floor getByCellId(String cellId);
 }

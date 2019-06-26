@@ -2,9 +2,12 @@ package vn.com.rfim_api.persistences;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import vn.com.rfim_api.persistences.entities.Cell;
+import vn.com.rfim_api.persistences.entities.Floor;
 import vn.com.rfim_api.persistences.entities.Shelf;
 import vn.com.rfim_api.persistences.repositories.ShelfRepository;
 
@@ -23,4 +26,14 @@ public class ShelfRepositoryImpl implements ShelfRepository {
         List<Shelf> shelves = session.createQuery("from Shelf", Shelf.class).getResultList();
         return shelves;
     }
+
+    //Get shelf by floor id
+    @Override
+    public Shelf getByFloorId(String floorId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Floor floor = session.get(Floor.class, floorId);
+        Shelf shelf = floor.getShelf();
+        return shelf;
+    }
+
 }

@@ -3,10 +3,13 @@ package vn.com.rfim_api.services;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.ShelfRepository;
 import vn.com.rfim_api.services.dtos.ShelfDTO;
+import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 
@@ -19,8 +22,26 @@ public class ShelfService {
     @Autowired
     private ModelMapper mapper;
 
-    public List<ShelfDTO> getAll() {
+    public ResponseEntity getAll() {
+        ResultResponse response = new ResultResponse();
         List<ShelfDTO> shelves = mapper.map(context.getAll(), new TypeToken<List<ShelfDTO>>(){}.getType());
-        return shelves;
+        if (shelves.size() > 0) {
+            return new ResponseEntity(shelves, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
+
+    //Get shelf by floor id
+    public ResponseEntity getShelfByFloorId(String floorId) {
+        ResultResponse response = new ResultResponse();
+        ShelfDTO shelf = mapper.map(context.getByFloorId(floorId), ShelfDTO.class);
+        if (shelf != null) {
+            response.setData(shelf);
+            return new ResponseEntity(shelf, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

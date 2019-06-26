@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.entities.Cell;
+import vn.com.rfim_api.persistences.entities.Shelf;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class CellRepositoryImpl implements CellRepository {
     @Autowired
     private ModelMapper mapper;
 
+    //Get cell by floor id
     @Override
     public List<Cell> getByFloorId(String floorId) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -30,6 +32,7 @@ public class CellRepositoryImpl implements CellRepository {
         return cells;
     }
 
+    //Register cell with cell rfid
     @Override
     public boolean registerCell(String cellId, String cellRfid) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -43,4 +46,14 @@ public class CellRepositoryImpl implements CellRepository {
         }
         return false;
     }
+
+    @Override
+    public Cell getByCellRfid(String rfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Cell where cellRfid = :rfid");
+        query.setParameter("rfid", rfid);
+        Cell cell = (Cell) query.getSingleResult();
+        return cell;
+    }
+
 }

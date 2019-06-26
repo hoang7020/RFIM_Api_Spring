@@ -2,36 +2,46 @@ package vn.com.rfim_api.services.dtos;
 
 public class BoxDTO {
 
-    private String boxId;
+    private String boxRfid;
 
-    private String description;
+    private int quantityPerBox;
 
-    private String packageId;
+    private String packageRfid;
+
+    private String productId;
 
     public BoxDTO() {
     }
 
-    public String getBoxId() {
-        return boxId;
+    public String getBoxRfid() {
+        return boxRfid;
     }
 
-    public void setBoxId(String boxId) {
-        this.boxId = boxId;
+    public void setBoxRfid(String boxRfid) {
+        this.boxRfid = boxRfid;
     }
 
-    public String getDescription() {
-        return description;
+    public int getQuantityPerBox() {
+        return quantityPerBox;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setQuantityPerBox(int quantityPerBox) {
+        this.quantityPerBox = quantityPerBox;
     }
 
-    public String getPackageId() {
-        return packageId;
+    public String getPackageRfid() {
+        return packageRfid;
     }
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
+    public void setPackageRfid(String packageRfid) {
+        this.packageRfid = packageRfid;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 }

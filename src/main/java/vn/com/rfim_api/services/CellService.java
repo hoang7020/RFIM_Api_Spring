@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 import vn.com.rfim_api.services.dtos.CellDTO;
-import vn.com.rfim_api.services.jsonobjects.CellData;
+import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
 import vn.com.rfim_api.services.jsonobjects.ResultResponse;
+import vn.com.rfim_api.utils.PropertiesUtil;
 
 import java.util.List;
 
@@ -28,26 +29,33 @@ public class CellService {
         ResultResponse response = new ResultResponse();
         List<CellDTO> cells = mapper.map(context.getByFloorId(floorId), new TypeToken<List<CellDTO>>(){}.getType());
         if (cells.size() > 0) {
-            response.setMessage("OK");
-            response.setData(new CellData(cells));
-            return new ResponseEntity(response, HttpStatus.OK);
+            return new ResponseEntity(cells, HttpStatus.OK);
         } else {
-            response.setMessage("No Cell Found!");
-            return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 
     //Map cell with rfid tag
     public ResponseEntity registerCell(String cellId, String cellRfid) {
-        ResultResponse response = new ResultResponse();
+        ResponseMesasge response = new ResponseMesasge();
         boolean result = context.registerCell(cellId, cellRfid);
         if (result) {
-            response.setMessage("Register Cell Success!");
+            response.setMessage(PropertiesUtil.getString("register_cell_successfully"));
             return new ResponseEntity(response, HttpStatus.OK);
         } else {
-            response.setMessage("Register Cell Fail!");
-            return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+            response.setMessage(PropertiesUtil.getString("register_cell_fail"));
+            return new ResponseEntity(response, HttpStatus.NO_CONTENT);
         }
     }
 
+
+    //Get cell by cell rfid
+    public ResponseEntity getCellByCellRfid(String rfid) {
+        CellDTO cell = mapper.map(context.getByCellRfid(rfid), CellDTO.class);
+        if (cell != null) {
+            return new ResponseEntity(cell, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+    }
 }

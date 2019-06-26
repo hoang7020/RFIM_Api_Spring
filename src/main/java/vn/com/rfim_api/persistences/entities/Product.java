@@ -15,7 +15,19 @@ public class Product {
 
     private String productName;
 
+    private int weight;
+
+    private String image;
+
     private String description;
+
+    private int height;
+
+    private int width;
+
+    private int length;
+
+    private int quantityPerBox;
 
     @ManyToOne
     @JoinColumn(name = "categoryId", nullable = false)
@@ -23,6 +35,9 @@ public class Product {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Package> aPackages = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Box> boxes = new ArrayList<>();
 
     public String getProductId() {
         return productId;
@@ -40,12 +55,60 @@ public class Product {
         this.productName = productName;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getQuantityPerBox() {
+        return quantityPerBox;
+    }
+
+    public void setQuantityPerBox(int quantityPerBox) {
+        this.quantityPerBox = quantityPerBox;
     }
 
     public Category getCategory() {
@@ -62,5 +125,13 @@ public class Product {
 
     public void setaPackages(List<Package> aPackages) {
         this.aPackages = aPackages;
+    }
+
+    public List<Box> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(List<Box> boxes) {
+        this.boxes = boxes;
     }
 }

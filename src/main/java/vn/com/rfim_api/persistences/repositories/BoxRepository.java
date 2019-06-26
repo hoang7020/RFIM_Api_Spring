@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface BoxRepository {
 
-    public void addBatchBox(List<String> boxRfids, String packageId);
+    public void addBatchBox(List<String> boxRfids, String packageId, String productId);
 
-    public boolean deleteBox(String boxId);
+    public List<String> deleteBatchBox(List<String> boxId);
 
     public boolean isExit(String boxId);
 

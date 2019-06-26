@@ -9,9 +9,9 @@ import java.util.List;
 public class Package {
 
     @Id
-    private String packageId;
+    private String packageRfid;
 
-    private int quantity;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = true)
@@ -21,23 +21,23 @@ public class Package {
     @JoinColumn(name = "cellId", nullable = true)
     private Cell cell;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aPackage")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "aPackage", orphanRemoval = true)
     private List<Box> boxes = new ArrayList<>();
 
-    public String getPackageId() {
-        return packageId;
+    public String getPackageRfid() {
+        return packageRfid;
     }
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
+    public void setPackageRfid(String packageRfid) {
+        this.packageRfid = packageRfid;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getDescription() {
+        return description;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Product getProduct() {

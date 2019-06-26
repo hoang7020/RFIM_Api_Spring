@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import vn.com.rfim_api.persistences.entities.Box;
 import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.ProductRepository;
 
@@ -34,6 +35,18 @@ public class ProductRepositoryImpl implements ProductRepository {
         query.setParameter("categoryId", categoryId);
         List<Product> products = query.getResultList();
         return products;
+    }
+
+    //Get product by box id
+    @Override
+    public Product getByBoxId(String boxId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Product product = null;
+        Box box = session.get(Box.class, boxId);
+        if (box != null) {
+            product = box.getProduct();
+        }
+        return product;
     }
 
 }

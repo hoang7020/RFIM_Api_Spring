@@ -9,8 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import vn.com.rfim_api.persistences.entities.Box;
 import vn.com.rfim_api.persistences.entities.Package;
+import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.BoxRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,11 +25,12 @@ public class BoxRepositoryImpl implements BoxRepository {
     //Add a list of box
     //Map all box with package id
     @Override
-    public void addBatchBox(List<String> boxRfids, String packageId) {
+    public void addBatchBox(List<String> boxRfids, String packageId, String productId) {
         Session session = this.sessionFactory.getCurrentSession();
         for (String rfid : boxRfids) {
             Box newbox = new Box();
-            newbox.setBoxId(rfid);
+            newbox.setBoxRfid(rfid);
+            newbox.setProduct(session.get(Product.class, productId));
             Package pac = session.load(Package.class, packageId);
             newbox.setaPackage(pac);
             session.save(newbox);
@@ -36,14 +39,18 @@ public class BoxRepositoryImpl implements BoxRepository {
 
     //Delete box when stock out
     @Override
-    public boolean deleteBox(String boxId) {
+    public List<String> deleteBatchBox(List<String> boxRfids) {
         Session session = this.sessionFactory.getCurrentSession();
-        Box box = session.load(Box.class, boxId);
-        session.delete(box);
-        if (!isExit(boxId)) {
-            return true;
+        List<String> listPackages = new ArrayList<>();
+        for (String rfid: boxRfids) {
+            Box delBox = session.load(Box.class, rfid);
+            if (!listPackages.contains(delBox.getaPackage().getPackageRfid())) {
+                listPackages.add(delBox.getaPackage().getPackageRfid());
+            }
+            session.delete(delBox);
+            session.flush();
         }
-        return false;
+        return listPackages;
     }
 
     //Check box is exit

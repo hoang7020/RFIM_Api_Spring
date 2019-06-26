@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.CategoryRepository;
 import vn.com.rfim_api.services.dtos.CategoryDTO;
-import vn.com.rfim_api.services.jsonobjects.CategoryData;
-import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 
@@ -25,15 +23,11 @@ public class CategoryService {
 
     //Get all categories
     public ResponseEntity getAll() {
-        ResultResponse response = new ResultResponse();
         List<CategoryDTO> categories = mapper.map(context.getAll(), new TypeToken<List<CategoryDTO>>(){}.getType());
         if (categories.size() > 0) {
-            response.setMessage("OK");
-            response.setData(new CategoryData(categories));
-            return new ResponseEntity(response, HttpStatus.OK);
+            return new ResponseEntity(categories, HttpStatus.OK);
         } else {
-            response.setMessage("No Category Found!");
-            return new ResponseEntity(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
     }
 

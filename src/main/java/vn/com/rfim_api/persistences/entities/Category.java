@@ -18,7 +18,7 @@ public class Category {
     public String description;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
-    private List<Product> listProduct = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public String getCategoryId() {
         return categoryId;
@@ -44,11 +44,11 @@ public class Category {
         this.description = description;
     }
 
-    public List<Product> getListProduct() {
-        return listProduct;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setListProduct(List<Product> listProduct) {
-        this.listProduct = listProduct;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

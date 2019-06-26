@@ -7,28 +7,22 @@ import javax.persistence.*;
 public class Box {
 
     @Id
-    private String boxId;
-
-    private String description;
+    private String boxRfid;
 
     @ManyToOne
-    @JoinColumn(name = "packageId", nullable = true)
+    @JoinColumn(name = "packageRfid", nullable = true)
     private Package aPackage;
 
-    public String getBoxId() {
-        return boxId;
+    @ManyToOne
+    @JoinColumn(name = "productId", nullable = true)
+    private Product product;
+
+    public String getBoxRfid() {
+        return boxRfid;
     }
 
-    public void setBoxId(String boxId) {
-        this.boxId = boxId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBoxRfid(String boxRfid) {
+        this.boxRfid = boxRfid;
     }
 
     public Package getaPackage() {
@@ -37,5 +31,13 @@ public class Box {
 
     public void setaPackage(Package aPackage) {
         this.aPackage = aPackage;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
