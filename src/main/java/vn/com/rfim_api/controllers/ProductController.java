@@ -19,16 +19,10 @@ public class ProductController {
         return service.getAll();
     }
 
-    //Get products by category id
-    @GetMapping(value = "/products/categories/{id}")
-    public ResponseEntity getProductsByCategoryId(@PathVariable String id) {
-        return service.getProductsByCategoryId(id);
-    }
-
     //Get product by box id
     @GetMapping(value = "/products/boxes/{id}")
     public ResponseEntity getProudctByBoxId(@PathVariable("id") String id) {
-        return service.getProductByBoxId(id);
+        return service.getProductByBoxRfid(id);
     }
 
 }

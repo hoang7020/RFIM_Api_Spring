@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.com.rfim_api.services.CategoryService;
+import vn.com.rfim_api.services.StocktakeTypeService;
 
 @RestController
-public class CategoryControler {
+public class StocktakeTypeController {
 
     @Autowired
-    private CategoryService service;
+    private StocktakeTypeService service;
 
-    //Get all categories
-    @GetMapping(value = "/categories")
-    public ResponseEntity getAllCategories() {
-        return service.getAll();
+    //Get all stocktake type
+    @GetMapping(name = "/stocktaketypes/")
+    public ResponseEntity getAllStocktakeType() {
+        return service.getAllStocktakeType();
     }
 
 }

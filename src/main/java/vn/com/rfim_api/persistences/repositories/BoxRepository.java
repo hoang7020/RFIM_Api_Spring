@@ -10,6 +10,8 @@ public interface BoxRepository {
 
     public boolean isExit(String boxId);
 
-    public boolean updateBoxPackageId(String boxId, String packageId);
+    public List<String> updateBatchBoxPackageRfid(String packageRfid, List<String> boxRfids);
+
+    public List<String> getByProductId(String productId);
 
 }

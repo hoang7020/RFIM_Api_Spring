@@ -12,7 +12,13 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
 }
-
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
 bootJar {
     mainClassName  = "vn.com.rfim_api.RfimApiApplication"
     version =  '1.0.0'

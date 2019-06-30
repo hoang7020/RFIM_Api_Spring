@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+import vn.com.rfim_api.constants.Constant;
+import vn.com.rfim_api.persistences.entities.Cell;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 import vn.com.rfim_api.services.dtos.CellDTO;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
 import vn.com.rfim_api.services.jsonobjects.ResultResponse;
-import vn.com.rfim_api.utils.PropertiesUtil;
 
 import java.util.List;
 
@@ -27,11 +29,12 @@ public class CellService {
     //Get Cell by using floor id
     public ResponseEntity getByFloorId(String floorId) {
         ResultResponse response = new ResultResponse();
-        List<CellDTO> cells = mapper.map(context.getByFloorId(floorId), new TypeToken<List<CellDTO>>(){}.getType());
+        List<CellDTO> cells = mapper.map(context.getByFloorId(floorId), new TypeToken<List<CellDTO>>() {
+        }.getType());
         if (cells.size() > 0) {
             return new ResponseEntity(cells, HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -40,22 +43,29 @@ public class CellService {
         ResponseMesasge response = new ResponseMesasge();
         boolean result = context.registerCell(cellId, cellRfid);
         if (result) {
-            response.setMessage(PropertiesUtil.getString("register_cell_successfully"));
+            response.setMessage(Constant.REGISTER_CELL_SUCCESSFULLY);
             return new ResponseEntity(response, HttpStatus.OK);
         } else {
-            response.setMessage(PropertiesUtil.getString("register_cell_fail"));
-            return new ResponseEntity(response, HttpStatus.NO_CONTENT);
+            response.setMessage(Constant.REGISTER_CELL_FAIL);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
 
 
     //Get cell by cell rfid
     public ResponseEntity getCellByCellRfid(String rfid) {
-        CellDTO cell = mapper.map(context.getByCellRfid(rfid), CellDTO.class);
-        if (cell != null) {
-            return new ResponseEntity(cell, HttpStatus.OK);
+        ResponseMesasge response = new ResponseMesasge();
+        Cell result = context.getByCellRfid(rfid);
+        if (result != null) {
+            CellDTO cell = mapper.map(result, CellDTO.class);
+            if (cell != null) {
+                return new ResponseEntity(cell, HttpStatus.OK);
+            } else {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            response.setMessage(Constant.CELL_NOT_EXIT);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
 }

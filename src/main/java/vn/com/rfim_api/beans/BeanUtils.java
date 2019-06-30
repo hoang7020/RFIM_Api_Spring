@@ -14,9 +14,5 @@ public class BeanUtils {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-    @Bean
-    public PropertiesUtil propertiesUtil() {
-        return new PropertiesUtil();
-    }
+    
 }

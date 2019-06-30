@@ -1,8 +1,6 @@
 package vn.com.rfim_api.utils;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 public class PropertiesUtil {
@@ -21,7 +19,8 @@ public class PropertiesUtil {
 
     public PropertiesUtil() {
         try {
-            reader = new FileReader(".\\src\\main\\resources\\messages.properties");
+            reader = new FileReader("./messages.properties");
+//            reader = new FileReader("./src/main/resources/message/messages.properties");
             properties = new Properties();
             properties.load(reader);
         } catch (FileNotFoundException e) {

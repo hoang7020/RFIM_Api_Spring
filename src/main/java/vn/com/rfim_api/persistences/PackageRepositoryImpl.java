@@ -63,7 +63,7 @@ public class PackageRepositoryImpl implements PackageRepository {
     @Override
     public boolean deletePackage(String packageId) {
         Session session = this.sessionFactory.getCurrentSession();
-        Package pac = session.load(Package.class, packageId);
+        Package pac = session.get(Package.class, packageId);
         session.delete(pac);
         if (!isExit(packageId)) {
             return true;
@@ -83,6 +83,7 @@ public class PackageRepositoryImpl implements PackageRepository {
         return false;
     }
 
+    //Check package was stocked in or not
     @Override
     public boolean isStockIn(String packageRfid) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -91,6 +92,17 @@ public class PackageRepositoryImpl implements PackageRepository {
             return true;
         }
         return false;
+    }
+
+    //Get package by pacakge rfid
+    @Override
+    public Package getByPackageRfid(String packageRfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Package pac = session.get(Package.class, packageRfid);
+        if (pac != null) {
+            return pac;
+        }
+        return null;
     }
 
 }

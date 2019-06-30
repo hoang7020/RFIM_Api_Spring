@@ -10,6 +10,8 @@ public interface ProductRepository {
 
     public List<Product> getByCategoryId(String categoryId);
 
-    public Product getByBoxId(String boxId);
+    public Product getByBoxRfid(String boxRfid);
+
+    public Product getByPackageRfid(String packageRfid);
 
 }

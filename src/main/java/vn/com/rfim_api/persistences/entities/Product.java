@@ -39,6 +39,9 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Box> boxes = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private List<StocktakeHistory> stocktakeHistories = new ArrayList<>();
+
     public String getProductId() {
         return productId;
     }
@@ -133,5 +136,13 @@ public class Product {
 
     public void setBoxes(List<Box> boxes) {
         this.boxes = boxes;
+    }
+
+    public List<StocktakeHistory> getStocktakeHistories() {
+        return stocktakeHistories;
+    }
+
+    public void setStocktakeHistories(List<StocktakeHistory> stocktakeHistories) {
+        this.stocktakeHistories = stocktakeHistories;
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.entities.Box;
+import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.ProductRepository;
 
@@ -37,16 +38,30 @@ public class ProductRepositoryImpl implements ProductRepository {
         return products;
     }
 
-    //Get product by box id
+    //Get product by box rfid
     @Override
-    public Product getByBoxId(String boxId) {
+    public Product getByBoxRfid(String boxRfid) {
         Session session = this.sessionFactory.getCurrentSession();
         Product product = null;
-        Box box = session.get(Box.class, boxId);
+        Box box = session.get(Box.class, boxRfid);
         if (box != null) {
             product = box.getProduct();
         }
         return product;
     }
+
+    //Get product by package rfid
+    @Override
+    public Product getByPackageRfid(String packageRfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Product product = null;
+        Package pac = session.get(Package.class, packageRfid);
+        if (pac != null) {
+            product = pac.getProduct();
+        }
+        return product;
+    }
+
+
 
 }

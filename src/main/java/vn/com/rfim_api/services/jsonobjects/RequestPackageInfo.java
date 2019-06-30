@@ -2,7 +2,7 @@ package vn.com.rfim_api.services.jsonobjects;
 
 import java.util.List;
 
-public class PackageRegisterRequest {
+public class RequestPackageInfo {
     private String productId;
     private String packageRfid;
     private List<String> boxRfids;

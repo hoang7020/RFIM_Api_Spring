@@ -2,6 +2,7 @@ package vn.com.rfim_api.persistences;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,6 +35,7 @@ public class BoxRepositoryImpl implements BoxRepository {
             Package pac = session.load(Package.class, packageId);
             newbox.setaPackage(pac);
             session.save(newbox);
+            session.flush();
         }
     }
 
@@ -43,7 +45,7 @@ public class BoxRepositoryImpl implements BoxRepository {
         Session session = this.sessionFactory.getCurrentSession();
         List<String> listPackages = new ArrayList<>();
         for (String rfid: boxRfids) {
-            Box delBox = session.load(Box.class, rfid);
+            Box delBox = session.get(Box.class, rfid);
             if (!listPackages.contains(delBox.getaPackage().getPackageRfid())) {
                 listPackages.add(delBox.getaPackage().getPackageRfid());
             }
@@ -64,17 +66,32 @@ public class BoxRepositoryImpl implements BoxRepository {
         return false;
     }
 
-    //Update cell id of box (transfer box between package)
+    //Update package rfid of box (transfer box between package)
     @Override
-    public boolean updateBoxPackageId(String boxId, String packageId) {
+    public List<String> updateBatchBoxPackageRfid(String packageRfid, List<String> boxRfids) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("update Box set package.packageId = :packageId where boxId = :boxId");
-        query.setParameter("packageId", packageId);
-        query.setParameter("boxId", boxId);
-        int result = query.executeUpdate();
-        if (result > 0) {
-            return true;
+        List<String> listPackages = new ArrayList<>();
+        for (String boxRfid: boxRfids) {
+            Box updateBox = session.get(Box.class, boxRfid);
+            if (!listPackages.contains(updateBox.getaPackage().getPackageRfid())) {
+                listPackages.add(updateBox.getaPackage().getPackageRfid());
+            }
+            Package pac = new Package();
+            pac.setPackageRfid(packageRfid);
+            updateBox.setaPackage(pac);
+            session.update(updateBox);
+            session.flush();
         }
-        return false;
+        return listPackages;
+    }
+
+    //Get all box rfids by product id
+    @Override
+    public List<String> getByProductId(String productId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        NativeQuery query = session.createNativeQuery("select BoxRFID from box where ProductId = :productId");
+        query.setParameter("productId", productId);
+        List<String> boxRfids = query.getResultList();
+        return boxRfids;
     }
 }

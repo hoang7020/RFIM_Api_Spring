@@ -15,4 +15,7 @@ public interface PackageRepository {
     public boolean isEmpty(String packageRfid);
 
     public boolean isStockIn(String packageRfid);
+
+    public Package getByPackageRfid(String packageRfid);
+
 }

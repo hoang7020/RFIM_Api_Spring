@@ -11,6 +11,7 @@ import vn.com.rfim_api.persistences.entities.Cell;
 import vn.com.rfim_api.persistences.entities.Shelf;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -50,10 +51,17 @@ public class CellRepositoryImpl implements CellRepository {
     @Override
     public Cell getByCellRfid(String rfid) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Cell where cellRfid = :rfid");
-        query.setParameter("rfid", rfid);
-        Cell cell = (Cell) query.getSingleResult();
-        return cell;
+        try {
+            Query query = session.createQuery("from Cell where cellRfid = :rfid");
+            query.setParameter("rfid", rfid);
+            Cell cell = (Cell) query.getSingleResult();
+            if (cell != null) {
+                return cell;
+            }
+        } catch (NoResultException ex) {
+            return null;
+        }
+        return null;
     }
 
 }
