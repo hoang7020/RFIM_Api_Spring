@@ -11,6 +11,8 @@ import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.PackageRepository;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -34,6 +36,22 @@ public class PackageRepositoryImpl implements PackageRepository {
 
     //Map package with cell id
     //Stock in package
+    public boolean stockinPackage(String packageRfid, String cellId, Timestamp date) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("update Package set cell.cellId = :cellId, date = :date where packageRfid = :packageRfid");
+        query.setParameter("cellId", cellId);
+        query.setParameter("date", new Date(date.getTime()));
+        query.setParameter("packageRfid", packageRfid);
+        int result = query.executeUpdate();
+        if (result > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //Map package with cell id
+    //Transfer package
     @Override
     public boolean updatePackageCellId(String packageRfid, String cellId) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -105,4 +123,14 @@ public class PackageRepositoryImpl implements PackageRepository {
         return null;
     }
 
+    //Get earliest package in warehouse
+    @Override
+    public Package getEarliesPackageByProductId(String productId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Package P where ProductId = :productId order by Date");
+        query.setParameter("productId", productId);
+        List<Package> pac = query.getResultList();
+
+        return pac.get(0);
+    }
 }

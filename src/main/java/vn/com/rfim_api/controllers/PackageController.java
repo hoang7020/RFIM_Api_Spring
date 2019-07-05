@@ -31,7 +31,7 @@ public class PackageController {
     //Stock in Package by mapping package with cell id
     @PostMapping(value = "/packages/stockin")
     public ResponseEntity stockIn(@RequestBody PackageDTO pac) {
-        return service.stockIn(pac.getPackageRfid(), pac.getCellId());
+        return service.stockIn(pac.getPackageRfid(), pac.getCellId(), pac.getDate());
     }
 
     //Stock out box by remove box

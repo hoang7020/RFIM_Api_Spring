@@ -23,7 +23,8 @@ public class StocktakeHistoryRepositoryImpl implements StocktakeHistoryRepositor
     private SessionFactory sessionFactory;
 
     @Override
-    public boolean addStocktakeHistory(int userId, String productId, Timestamp date, int stocktakeTypeId) {
+    public boolean addStocktakeHistory(int stocktakeTypeId, int userId, String productId,
+                                       int quantity, Timestamp date, String description) {
         Session session = this.sessionFactory.getCurrentSession();
 //        StocktakeHistory stocktakeHistory = new StocktakeHistory();
 //        User user = session.get(User.class, userId);
@@ -34,12 +35,14 @@ public class StocktakeHistoryRepositoryImpl implements StocktakeHistoryRepositor
 //        StocktakeType stocktakeType = session.get(StocktakeType.class, stocktakeTypeId);
 //        stocktakeHistory.setStocktakeType(stocktakeType);
 //        session.save(stocktakeHistory);
-        NativeQuery query = session.createNativeQuery("insert into StocktakeHistory(UserId, ProductId, Date, StocktakeTypeId)" +
-                "values(:userId, :productId, :date, :stocktakeTypeId)");
+        NativeQuery query = session.createNativeQuery("insert into StocktakeHistory(StocktakeTypeId, UserId, ProductId, Quantity, Date, Description)" +
+                "values(:stocktakeTypeId, :userId, :productId, :quantity, :date, :description)");
+        query.setParameter("stocktakeTypeId", stocktakeTypeId);
         query.setParameter("userId", userId);
         query.setParameter("productId", productId);
+        query.setParameter("quantity", quantity);
         query.setParameter("date", date);
-        query.setParameter("stocktakeTypeId", stocktakeTypeId);
+        query.setParameter("description", description);
         int result = query.executeUpdate();
         if (result > 0) {
             return true;

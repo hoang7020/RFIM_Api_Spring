@@ -11,9 +11,7 @@ import vn.com.rfim_api.constants.Constant;
 import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.ProductRepository;
 import vn.com.rfim_api.services.dtos.ProductDTO;
-import vn.com.rfim_api.services.jsonobjects.ProductData;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
-import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 
@@ -28,13 +26,12 @@ public class ProductService {
 
     //Get all products
     public ResponseEntity getAll() {
-        ResultResponse response = new ResultResponse();
         List<ProductDTO> products = mapper.map(context.getAll(), new TypeToken<List<ProductDTO>>() {
         }.getType());
         if (products.size() > 0) {
             return new ResponseEntity(products, HttpStatus.OK);
         } else {
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 

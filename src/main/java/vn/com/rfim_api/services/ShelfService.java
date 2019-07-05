@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.persistences.repositories.ShelfRepository;
 import vn.com.rfim_api.services.dtos.ShelfDTO;
-import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class ShelfService {
     private ModelMapper mapper;
 
     public ResponseEntity getAll() {
-        ResultResponse response = new ResultResponse();
         List<ShelfDTO> shelves = mapper.map(context.getAll(), new TypeToken<List<ShelfDTO>>(){}.getType());
         if (shelves.size() > 0) {
             return new ResponseEntity(shelves, HttpStatus.OK);
@@ -34,10 +32,8 @@ public class ShelfService {
 
     //Get shelf by floor id
     public ResponseEntity getShelfByFloorId(String floorId) {
-        ResultResponse response = new ResultResponse();
         ShelfDTO shelf = mapper.map(context.getByFloorId(floorId), ShelfDTO.class);
         if (shelf != null) {
-            response.setData(shelf);
             return new ResponseEntity(shelf, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

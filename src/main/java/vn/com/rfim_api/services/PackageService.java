@@ -13,6 +13,7 @@ import vn.com.rfim_api.persistences.repositories.PackageRepository;
 import vn.com.rfim_api.services.dtos.PackageDTO;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -39,11 +40,11 @@ public class PackageService {
 
     //Map package with cell id
     //Stock in package
-    public ResponseEntity stockIn(String packageRfid, String cellId) {
+    public ResponseEntity stockIn(String packageRfid, String cellId, Timestamp date) {
         ResponseMesasge response = new ResponseMesasge();
         if (packageContext.isExit(packageRfid)) {
             if (!packageContext.isStockIn(packageRfid)) {
-                boolean result = packageContext.updatePackageCellId(packageRfid, cellId);
+                boolean result = packageContext.stockinPackage(packageRfid, cellId, date);
                 if (result) {
                     response.setMessage(Constant.STOCK_IN_PACKAGE_SUCCESSFULLY);
                     return new ResponseEntity(response, HttpStatus.OK);

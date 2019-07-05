@@ -10,4 +10,6 @@ public interface ShelfRepository {
     public List<Shelf> getAll();
 
     public Shelf getByFloorId(String floorId);
+
+    public Shelf getByPackageRfid(String packageRfid);
 }

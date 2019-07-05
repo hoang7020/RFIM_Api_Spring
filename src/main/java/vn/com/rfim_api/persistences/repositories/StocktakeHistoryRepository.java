@@ -5,5 +5,6 @@ import java.util.Date;
 
 public interface StocktakeHistoryRepository {
 
-    public boolean addStocktakeHistory(int userId, String productId, Timestamp date, int stocktakeTypeId);
+    public boolean addStocktakeHistory(int stocktakeTypeId, int userId, String productId,
+                                       int quantity, Timestamp date, String description);
 }

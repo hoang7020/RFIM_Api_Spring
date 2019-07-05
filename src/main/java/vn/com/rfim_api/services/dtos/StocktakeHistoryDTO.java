@@ -7,13 +7,17 @@ public class StocktakeHistoryDTO {
 
     private int stocktakeHistoryId;
 
+    private int stocktakeTypeId;
+
     private int userId;
 
     private String productId;
 
-    private int stocktakeTypeId;
+    private int quantity;
 
     private Timestamp date;
+
+    private String description;
 
 
     public StocktakeHistoryDTO() {
@@ -25,6 +29,14 @@ public class StocktakeHistoryDTO {
 
     public void setStocktakeHistoryId(int stocktakeHistoryId) {
         this.stocktakeHistoryId = stocktakeHistoryId;
+    }
+
+    public int getStocktakeTypeId() {
+        return stocktakeTypeId;
+    }
+
+    public void setStocktakeTypeId(int stocktakeTypeId) {
+        this.stocktakeTypeId = stocktakeTypeId;
     }
 
     public int getUserId() {
@@ -43,12 +55,12 @@ public class StocktakeHistoryDTO {
         this.productId = productId;
     }
 
-    public int getStocktakeTypeId() {
-        return stocktakeTypeId;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStocktakeTypeId(int stocktakeTypeId) {
-        this.stocktakeTypeId = stocktakeTypeId;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Timestamp getDate() {
@@ -57,5 +69,13 @@ public class StocktakeHistoryDTO {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

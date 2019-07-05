@@ -36,4 +36,14 @@ public class ShelfRepositoryImpl implements ShelfRepository {
         return shelf;
     }
 
+    //Get shelf by package id
+    @Override
+    public Shelf getByPackageRfid(String packageRfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Cell cell = session.get(Cell.class, packageRfid);
+        Floor floor = cell.getFloor();
+        Shelf shelf = floor.getShelf();
+        return shelf;
+    }
+
 }

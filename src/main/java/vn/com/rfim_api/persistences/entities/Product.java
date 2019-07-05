@@ -42,6 +42,7 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<StocktakeHistory> stocktakeHistories = new ArrayList<>();
 
+
     public String getProductId() {
         return productId;
     }

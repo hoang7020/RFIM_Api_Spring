@@ -1,5 +1,7 @@
 package vn.com.rfim_api.services.dtos;
 
+import java.sql.Timestamp;
+
 public class PackageDTO {
 
 
@@ -8,16 +10,18 @@ public class PackageDTO {
     private int quantity;
     private String productId;
     private String cellId;
+    private Timestamp date;
 
     public PackageDTO() {
     }
 
-    public PackageDTO(String packageRfid, String packageName, int quantity, String productId, String cellId) {
+    public PackageDTO(String packageRfid, String packageName, int quantity, String productId, String cellId, Timestamp date) {
         this.packageRfid = packageRfid;
         this.packageName = packageName;
         this.quantity = quantity;
         this.productId = productId;
         this.cellId = cellId;
+        this.date = date;
     }
 
     public String getPackageRfid() {
@@ -58,5 +62,13 @@ public class PackageDTO {
 
     public void setCellId(String cellId) {
         this.cellId = cellId;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 }

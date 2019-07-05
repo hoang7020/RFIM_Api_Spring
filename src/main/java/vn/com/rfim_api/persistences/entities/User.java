@@ -1,11 +1,13 @@
 package vn.com.rfim_api.persistences.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "User")
+@Table(name = "[User]")
 public class User {
 
     @Id
@@ -19,10 +21,11 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "roleId", nullable = false)
+    @JoinColumn(name = "roleId", nullable = true)
     private Role role;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @JsonIgnore
     private List<StocktakeHistory> stocktakeHistories = new ArrayList<>();
 
     public int getUserId() {

@@ -20,4 +20,7 @@ public class Constant {
     //message from cell api
     public static final String REGISTER_CELL_SUCCESSFULLY = "Register cell successfully.";
     public static final String REGISTER_CELL_FAIL = "Register cell fail.";
+
+    //message form user api
+    public static final String LOGIN_FAIL = "Username or Password are not correct.";
 }

@@ -14,6 +14,10 @@ public class StocktakeHistory {
 
     private Timestamp date;
 
+    private int quantity;
+
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     private User user;
@@ -40,6 +44,22 @@ public class StocktakeHistory {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getUser() {

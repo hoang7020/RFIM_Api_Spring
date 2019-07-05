@@ -7,13 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 import vn.com.rfim_api.constants.Constant;
 import vn.com.rfim_api.persistences.entities.Cell;
 import vn.com.rfim_api.persistences.repositories.CellRepository;
 import vn.com.rfim_api.services.dtos.CellDTO;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
-import vn.com.rfim_api.services.jsonobjects.ResultResponse;
 
 import java.util.List;
 
@@ -28,7 +26,6 @@ public class CellService {
 
     //Get Cell by using floor id
     public ResponseEntity getByFloorId(String floorId) {
-        ResultResponse response = new ResultResponse();
         List<CellDTO> cells = mapper.map(context.getByFloorId(floorId), new TypeToken<List<CellDTO>>() {
         }.getType());
         if (cells.size() > 0) {

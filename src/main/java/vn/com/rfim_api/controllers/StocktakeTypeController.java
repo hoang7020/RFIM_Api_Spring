@@ -13,7 +13,7 @@ public class StocktakeTypeController {
     private StocktakeTypeService service;
 
     //Get all stocktake type
-    @GetMapping(name = "/stocktaketypes/")
+    @GetMapping(value = "/stocktaketypes/")
     public ResponseEntity getAllStocktakeType() {
         return service.getAllStocktakeType();
     }

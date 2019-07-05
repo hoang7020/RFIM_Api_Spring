@@ -1,6 +1,7 @@
 package vn.com.rfim_api.persistences.entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class Package {
     private String packageRfid;
 
     private String description;
+
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = true)
@@ -38,6 +41,14 @@ public class Package {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Product getProduct() {

@@ -1,5 +1,7 @@
 package vn.com.rfim_api.persistences.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class Role {
     private String roleName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     public int getRoleId() {
