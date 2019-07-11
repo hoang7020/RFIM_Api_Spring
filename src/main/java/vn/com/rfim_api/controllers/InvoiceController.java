@@ -21,10 +21,16 @@ public class InvoiceController {
     @Autowired
     private InvoiceService service;
 
-    //Get all active invoice
-    @GetMapping(value = "/invoices")
-    public ResponseEntity getAllActiveInvoice() {
-        return service.getInvoiceInfo();
+    //Get all active issuse
+    @GetMapping(value = "/issues")
+    public ResponseEntity getAllActiveIssues() {
+        return service.getIssueInfo();
+    }
+
+    //Get all active receipt
+    @GetMapping(value = "/receipts")
+    public ResponseEntity getAllActiveReceipt() {
+        return service.getReceiptInfo();
     }
 
     @PostMapping(value = "/dijkstra")

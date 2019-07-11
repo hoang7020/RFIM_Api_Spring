@@ -130,7 +130,9 @@ public class PackageRepositoryImpl implements PackageRepository {
         Query query = session.createQuery("from Package P where ProductId = :productId order by Date");
         query.setParameter("productId", productId);
         List<Package> pac = query.getResultList();
-
-        return pac.get(0);
+        if (pac.size() > 0) {
+            return pac.get(0);
+        }
+        return null;
     }
 }

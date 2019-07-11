@@ -11,11 +11,11 @@ public class StocktakeTypeController {
 
     @Autowired
     private StocktakeTypeService service;
-
-    //Get all stocktake type
-    @GetMapping(value = "/stocktaketypes/")
-    public ResponseEntity getAllStocktakeType() {
-        return service.getAllStocktakeType();
-    }
+//
+//    //Get all stocktake type
+//    @GetMapping(value = "/stocktaketypes/")
+//    public ResponseEntity getAllStocktakeType() {
+//        return service.getAllStocktakeType();
+//    }
 
 }

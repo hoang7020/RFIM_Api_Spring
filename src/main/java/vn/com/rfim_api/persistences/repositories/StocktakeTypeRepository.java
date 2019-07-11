@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface StocktakeTypeRepository {
 
-    public List<StocktakeType> getAll();
+//    public List<StocktakeType> getAll();
 
 }

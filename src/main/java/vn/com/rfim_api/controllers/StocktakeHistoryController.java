@@ -17,7 +17,7 @@ public class StocktakeHistoryController {
     //Create stocktake history
     @PostMapping(value = "/stocktake_histories")
     public ResponseEntity addStocktakeHistory(@RequestBody StocktakeHistoryDTO request) {
-        return service.addStocktakeHistory(request.getStocktakeTypeId(), request.getUserId(), request.getProductId(),
+        return service.addStocktakeHistory(request.getUserId(), request.getProductId(),
                 request.getQuantity(), request.getDate(), request.getDescription());
     }
 

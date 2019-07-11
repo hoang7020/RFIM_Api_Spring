@@ -20,17 +20,17 @@ public class StocktakeTypeService {
     private StocktakeTypeRepository context;
     @Autowired
     private ModelMapper mapper;
-
-    //Get all stocktake type
-    public ResponseEntity getAllStocktakeType() {
-        List<StocktakeType> result = context.getAll();
-        if (result.size() > 0) {
-            List<StocktakeTypeDTO> stocktakeTypeDTOS =
-                    mapper.map(result, new TypeToken<List<StocktakeTypeDTO>>(){}.getType());
-            return new ResponseEntity(stocktakeTypeDTOS, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-    }
+//
+//    //Get all stocktake type
+//    public ResponseEntity getAllStocktakeType() {
+//        List<StocktakeType> result = context.getAll();
+//        if (result.size() > 0) {
+//            List<StocktakeTypeDTO> stocktakeTypeDTOS =
+//                    mapper.map(result, new TypeToken<List<StocktakeTypeDTO>>(){}.getType());
+//            return new ResponseEntity(stocktakeTypeDTOS, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface InvoiceRepository {
 
-    public List<InvoiceInfoItem> getInvoiceInfo(int type, boolean status);
+    public List<InvoiceInfoItem> getInvoiceInfo(int type);
+
+    public void updateInvoiceStatus(String invoiceId, int status);
 
 }

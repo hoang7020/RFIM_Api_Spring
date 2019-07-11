@@ -19,11 +19,11 @@ public class StocktakeTypeRepositoryImpl implements StocktakeTypeRepository {
     private SessionFactory sessionFactory;
 
     //Get all stocktake type
-    @Override
-    public List<StocktakeType> getAll() {
-        Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from StocktakeType");
-        List<StocktakeType> stocktakeTypes = query.getResultList();
-        return stocktakeTypes;
-    }
+//    @Override
+//    public List<StocktakeType> getAll() {
+//        Session session = this.sessionFactory.getCurrentSession();
+//        Query query = session.createQuery("from StocktakeType");
+//        List<StocktakeType> stocktakeTypes = query.getResultList();
+//        return stocktakeTypes;
+//    }
 }

@@ -11,4 +11,5 @@ public interface CellRepository {
     public boolean registerCell(String cellId, String cellRfid);
 
     public Cell getByCellRfid(String rfid);
+    
 }

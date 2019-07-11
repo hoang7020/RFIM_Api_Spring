@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import vn.com.rfim_api.services.PackageService;
 import vn.com.rfim_api.services.dtos.PackageDTO;
 import vn.com.rfim_api.services.jsonobjects.RequestPackageInfo;
+import vn.com.rfim_api.services.jsonobjects.RequestStockoutInfo;
+import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
 
 @RestController
 public class PackageController {
@@ -19,7 +21,7 @@ public class PackageController {
     //Map package with product
     @PostMapping(value = "/packages/register")
     public ResponseEntity registerPackage(@RequestBody RequestPackageInfo request) {
-        return service.registerPackage(request.getPackageRfid(), request.getProductId(), request.getBoxRfids());
+        return service.registerPackage(request.getInvoiceId(), request.getPackageRfid(), request.getProductId(), request.getInvoiceStatus(), request.getBoxRfids());
     }
 
     //Get package by package rfid
@@ -36,8 +38,9 @@ public class PackageController {
 
     //Stock out box by remove box
     @PostMapping(value = "/packages/stockout")
-    public ResponseEntity stockOut(@RequestBody RequestPackageInfo request) {
-        return service.stockOut(request.getBoxRfids());
+    public ResponseEntity stockOut(@RequestBody RequestStockoutInfo request) {
+//        return ResponseEntity.ok(request);
+        return service.stockOut(request.getBoxRfids(), request.getInvoiceId());
     }
 
     //Transfer package by update cell rfid

@@ -18,10 +18,10 @@ public class StocktakeHistoryService {
     private StocktakeHistoryRepository context;
 
     //Create stocktake history
-    public ResponseEntity addStocktakeHistory(int stocktakeTypeId, int userId, String productId,
+    public ResponseEntity addStocktakeHistory(int userId, String productId,
                                               int quantity, Timestamp date, String description) {
         ResponseMesasge response = new ResponseMesasge();
-        boolean result = context.addStocktakeHistory(stocktakeTypeId, userId, productId, quantity, date, description);
+        boolean result = context.addStocktakeHistory(userId, productId, quantity, date, description);
         if (result) {
             response.setMessage("Report sccessfully.");
             return new ResponseEntity(response, HttpStatus.OK);

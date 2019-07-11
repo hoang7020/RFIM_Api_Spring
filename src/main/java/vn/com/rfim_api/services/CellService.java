@@ -55,11 +55,7 @@ public class CellService {
         Cell result = context.getByCellRfid(rfid);
         if (result != null) {
             CellDTO cell = mapper.map(result, CellDTO.class);
-            if (cell != null) {
-                return new ResponseEntity(cell, HttpStatus.OK);
-            } else {
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
-            }
+            return new ResponseEntity(cell, HttpStatus.OK);
         } else {
             response.setMessage(Constant.CELL_NOT_EXIT);
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);

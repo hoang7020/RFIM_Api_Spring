@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.algorithm.ShelfGraphConverter;
 import vn.com.rfim_api.algorithm.ShortestPathAlgorithm;
-import vn.com.rfim_api.persistences.entities.Invoice;
 import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.entities.Shelf;
 import vn.com.rfim_api.persistences.repositories.InvoiceRepository;
 import vn.com.rfim_api.persistences.repositories.PackageRepository;
 import vn.com.rfim_api.persistences.repositories.ShelfRepository;
 import vn.com.rfim_api.services.jsonobjects.InvoiceInfoItem;
-import vn.com.rfim_api.services.jsonobjects.SortIssueInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +28,39 @@ public class InvoiceService {
     @Autowired
     private ShelfRepository shelfContext;
 
-    //Get invoice have status false
-    public ResponseEntity getInvoiceInfo() {
-        List<InvoiceInfoItem> invoices = invoiceContext.getInvoiceInfo(2, false);
+    //Get receipt invoice have status false
+    public ResponseEntity getReceiptInfo() {
+        List<InvoiceInfoItem> invoices = invoiceContext.getInvoiceInfo(1);
+        List<InvoiceInfoItem> result = new ArrayList<>();
+        int size = invoices.size();
+        System.out.println("SIZE: " + size);
+//        for (int i = 0; i < size; i++) {
+////            System.out.println(invoices.get(i).getInvoiceId());
+////            if (invoices.get(i).getStatus() == 3) {
+////                invoices.remove(invoices.get(i));
+////            }
+////        }
+        for (InvoiceInfoItem i : invoices) {
+            if (i.getStatus() != 3) {
+                result.add(i);
+            }
+        }
+        if (invoices.size() > 0) {
+            return new ResponseEntity(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //Get issue invoice have status false
+    public ResponseEntity getIssueInfo() {
+        List<InvoiceInfoItem> invoices = invoiceContext.getInvoiceInfo(2);
+        int size = invoices.size();
+        for (int i = 0; i < size; i++) {
+            if (invoices.get(i).getStatus() == 3) {
+                invoices.remove(invoices.get(i));
+            }
+        }
         if (invoices.size() > 0) {
             return new ResponseEntity(invoices, HttpStatus.OK);
         } else {
@@ -42,22 +70,14 @@ public class InvoiceService {
 
     //Use dijktra algorithm to sort list which item should be pick first
     public ResponseEntity sortIssueInvoiceItem(List<InvoiceInfoItem> invoices) {
-        List<SortIssueInfo> result = new ArrayList<>();
         List<InvoiceInfoItem> results = new ArrayList<>();
+        List<InvoiceInfoItem> notEnoughInvoie = new ArrayList<>();
         List<Shelf> shelves = shelfContext.getAll();
-        Shelf currentShelf = null;
-        String currentProductId = null;
         InvoiceInfoItem currentInvoiceInfo = null;
         int currentPosition = 0;
         int shortestDistance = Integer.MAX_VALUE;
-        List<String> productIds = new ArrayList<>();
-        List<String> tmpListProductId = new ArrayList<>();
-        List<InvoiceInfoItem> tmpListInvoiceInfo = new ArrayList<>();
-        for (InvoiceInfoItem info: invoices) {
-            productIds.add(info.getProductId());
-            tmpListProductId.add(info.getProductId());
-            tmpListInvoiceInfo.add(info);
-        }
+        boolean isUpdate = false;
+//        List<InvoiceInfoItem> tmpListInvoiceInfo = new ArrayList<>();
         ShelfGraphConverter convert = new ShelfGraphConverter(shelves);
         int[][] graph = convert.drawGraph();
 
@@ -69,32 +89,42 @@ public class InvoiceService {
         }
         ShortestPathAlgorithm algorithm = new ShortestPathAlgorithm(shelves.size());
         int size = invoices.size();
-//        for (int i = 0; i < productIds.size(); i++) {
         for (int i = 0; i < size; i++) {
             int[] dist = algorithm.dijkstra(graph, currentPosition);
-            for (InvoiceInfoItem info : invoices) {
+            for (int j = 0; j < invoices.size(); j++) {
+                InvoiceInfoItem info = invoices.get(j);
                 Package pac = packageContext.getEarliesPackageByProductId(info.getProductId());
-                Shelf shelf = shelfContext.getByPackageRfid(pac.getCell().getCellId());
-                int position = convert.convertCoordinateToPosition(shelves, shelf);
-                int distance = dist[position];
-                if (distance < shortestDistance) {
-                    shortestDistance = distance;
-                    currentPosition = position;
-                    currentProductId = info.getProductId();
-                    currentShelf = shelf;
+                if (pac != null) {
+                    Shelf shelf = shelfContext.getByPackageRfid(pac.getCell().getCellId());
+                    int position = convert.convertCoordinateToPosition(shelves, shelf);
+                    int distance = dist[position];
+                    if (distance < shortestDistance) {
+                        shortestDistance = distance;
+                        currentPosition = position;
+                        currentInvoiceInfo = info;
+                        info.setShelfId(shelf.getShelfId());
+                    }
+                    isUpdate = true;
 
-                    currentInvoiceInfo = info;
-                    info.setShelfId(shelf.getShelfId());
+                } else {
+                    invoices.remove(info);
+//                    info.setShelfId("N/A");
+                    notEnoughInvoie.add(info);
+                    isUpdate = false;
                 }
             }
-            SortIssueInfo info = new SortIssueInfo(currentProductId, currentShelf.getShelfId());
-            result.add(info);
-            results.add(currentInvoiceInfo);
-            System.out.println("Position will be remove: " + currentProductId + " " + currentShelf.getShelfId());
-            tmpListProductId.remove(currentProductId);
-            shortestDistance = Integer.MAX_VALUE;
+
+            if (isUpdate) {
+                System.out.println("Position will be remove: " + currentInvoiceInfo.getProductId() + " " + currentInvoiceInfo.getShelfId());
+                invoices.remove(currentInvoiceInfo);
+                results.add(currentInvoiceInfo);
+                shortestDistance = Integer.MAX_VALUE;
+            }
         }
-        return new ResponseEntity(result, HttpStatus.OK);
+        for (InvoiceInfoItem i : notEnoughInvoie) {
+            results.add(i);
+        }
+        return new ResponseEntity(results, HttpStatus.OK);
     }
 
 }

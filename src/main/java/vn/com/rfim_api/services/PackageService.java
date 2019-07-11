@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.rfim_api.constants.Constant;
+import vn.com.rfim_api.persistences.entities.InvoiceProduct;
 import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.repositories.BoxRepository;
+import vn.com.rfim_api.persistences.repositories.InvoiceProductRepository;
+import vn.com.rfim_api.persistences.repositories.InvoiceRepository;
 import vn.com.rfim_api.persistences.repositories.PackageRepository;
 import vn.com.rfim_api.services.dtos.PackageDTO;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
@@ -25,15 +28,29 @@ public class PackageService {
     @Autowired
     private BoxRepository boxContext;
     @Autowired
+    private InvoiceRepository invoiceContext;
+    @Autowired
+    private InvoiceProductRepository invoiceProductContext;
+    @Autowired
     private ModelMapper mapper;
 
     //Create new packaged by using rfid id and map with product id
-    public ResponseEntity registerPackage(String packageId, String productId, List<String> boxRfids) {
+    public ResponseEntity registerPackage(String invoiceId, String packageId, String productId, int invoiceStatus,  List<String> boxRfids) {
         ResponseMesasge response = new ResponseMesasge();
         if (!packageContext.isExit(packageId)) {
             packageContext.addPackage(packageId, productId);
         }
         boxContext.addBatchBox(boxRfids, packageId, productId);
+        InvoiceProduct invoiceProduct = invoiceProductContext.getByInvoiceIdAndProductId(invoiceId, productId);
+        if (invoiceProduct.getProcessQuantity() < invoiceProduct.getQuantity()) {
+            if (invoiceStatus == 1) {
+                invoiceContext.updateInvoiceStatus(invoiceId, 2);
+            }
+            invoiceProductContext.updateProcessQuantity(invoiceId, productId, invoiceProduct.getProcessQuantity() + boxRfids.size());
+        }
+        if (isReceiptInvoiceCompleted(invoiceId)) {
+            invoiceContext.updateInvoiceStatus(invoiceId, 3);
+        }
         response.setMessage(Constant.REGISTER_PACKAGE_SUCCESSFULLY);
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -77,7 +94,7 @@ public class PackageService {
 
     //Remove box with box rifd
     //Stock out box
-    public ResponseEntity stockOut(List<String> boxRfids) {
+    public ResponseEntity stockOut(List<String> boxRfids, String invoiceId) {
         ResponseMesasge response = new ResponseMesasge();
         List<String> listPackageRfids = boxContext.deleteBatchBox(boxRfids);
         for (String id : listPackageRfids) {
@@ -85,6 +102,7 @@ public class PackageService {
                 packageContext.deletePackage(id);
             }
         }
+        invoiceContext.updateInvoiceStatus(invoiceId, 3);
         response.setMessage(Constant.STOCK_OUT_PACKAGE_SUCCESSFULLY);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -115,6 +133,22 @@ public class PackageService {
         }
         response.setMessage(Constant.TRANSFER_BOX_SUCCESSFULLY);
         return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    private boolean isReceiptInvoiceCompleted(String invoiceId) {
+        List<InvoiceProduct> invoiceProducts = invoiceProductContext.getByInvoiceId(invoiceId);
+        int sumQuantity = 0;
+        int sumProcessQuantity = 0;
+        for (InvoiceProduct ip: invoiceProducts) {
+            sumQuantity += ip.getQuantity();
+            sumProcessQuantity += ip.getProcessQuantity();
+        }
+        System.out.println("Q: " + sumQuantity + " PQ: " + sumProcessQuantity);
+        if (sumQuantity == sumProcessQuantity) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

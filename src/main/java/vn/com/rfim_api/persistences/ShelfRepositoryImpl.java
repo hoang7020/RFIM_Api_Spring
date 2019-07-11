@@ -2,7 +2,6 @@ package vn.com.rfim_api.persistences;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +39,7 @@ public class ShelfRepositoryImpl implements ShelfRepository {
     @Override
     public Shelf getByPackageRfid(String packageRfid) {
         Session session = this.sessionFactory.getCurrentSession();
-        Cell cell = session.get(Cell.class, packageRfid);
+        Cell cell = session.load(Cell.class, packageRfid);
         Floor floor = cell.getFloor();
         Shelf shelf = floor.getShelf();
         return shelf;

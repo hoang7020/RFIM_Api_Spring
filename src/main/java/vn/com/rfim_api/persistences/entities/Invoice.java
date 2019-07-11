@@ -2,30 +2,33 @@ package vn.com.rfim_api.persistences.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Invoice")
 public class Invoice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int invoiceId;
+    private String invoiceId;
 
     private Timestamp date;
 
     private String description;
 
-    private int invoiceType;
+    @ManyToOne
+    @JoinColumn(name = "statusId", nullable = false)
+    private InvoiceStatus invoiceStatus;
 
-    private int userId;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
+    private List<InvoiceProduct> invoiceProducts = new ArrayList<>();
 
-    private boolean status;
 
-    public int getInvoiceId() {
+    public String getInvoiceId() {
         return invoiceId;
     }
 
-    public void setInvoiceId(int invoiceId) {
+    public void setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
     }
 
@@ -45,27 +48,19 @@ public class Invoice {
         this.description = description;
     }
 
-    public int getInvoiceType() {
-        return invoiceType;
+    public InvoiceStatus getInvoiceStatus() {
+        return invoiceStatus;
     }
 
-    public void setInvoiceType(int invoiceType) {
-        this.invoiceType = invoiceType;
+    public void setInvoiceStatus(InvoiceStatus invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
     }
 
-    public int getUserId() {
-        return userId;
+    public List<InvoiceProduct> getInvoiceProducts() {
+        return invoiceProducts;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setInvoiceProducts(List<InvoiceProduct> invoiceProducts) {
+        this.invoiceProducts = invoiceProducts;
     }
 }

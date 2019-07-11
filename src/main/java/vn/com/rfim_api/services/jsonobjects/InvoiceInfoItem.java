@@ -12,19 +12,25 @@ public class InvoiceInfoItem {
 
     private int quantity;
 
-    private String shelfId;
+    private int processQuantity;
 
     private Date date;
+
+    private String shelfId;
+
+    private int Status;
 
     public InvoiceInfoItem() {
     }
 
-    public InvoiceInfoItem(String invoiceId, String productId, String productName, int quantity, Date date) {
+    public InvoiceInfoItem(String invoiceId, String productId, String productName, int quantity, int processQuantity, Date date, int status) {
         this.invoiceId = invoiceId;
         this.productId = productId;
         this.productName = productName;
         this.quantity = quantity;
+        this.processQuantity = processQuantity;
         this.date = date;
+        Status = status;
     }
 
     public String getInvoiceId() {
@@ -59,12 +65,12 @@ public class InvoiceInfoItem {
         this.quantity = quantity;
     }
 
-    public String getShelfId() {
-        return shelfId;
+    public int getProcessQuantity() {
+        return processQuantity;
     }
 
-    public void setShelfId(String shelfId) {
-        this.shelfId = shelfId;
+    public void setProcessQuantity(int processQuantity) {
+        this.processQuantity = processQuantity;
     }
 
     public Date getDate() {
@@ -73,5 +79,21 @@ public class InvoiceInfoItem {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getShelfId() {
+        return shelfId;
+    }
+
+    public void setShelfId(String shelfId) {
+        this.shelfId = shelfId;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
     }
 }
