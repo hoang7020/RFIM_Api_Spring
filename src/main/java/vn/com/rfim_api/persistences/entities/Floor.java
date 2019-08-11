@@ -11,6 +11,8 @@ public class Floor {
     @Id
     private String floorId;
 
+    private boolean status;
+
     @ManyToOne
     @JoinColumn(name = "shelfId", nullable = false)
     private Shelf shelf;
@@ -24,6 +26,14 @@ public class Floor {
 
     public void setFloorId(String floorId) {
         this.floorId = floorId;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Shelf getShelf() {

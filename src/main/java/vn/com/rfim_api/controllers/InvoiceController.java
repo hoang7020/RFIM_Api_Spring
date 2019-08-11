@@ -21,22 +21,24 @@ public class InvoiceController {
     @Autowired
     private InvoiceService service;
 
-    //Get all active issuse
+    //Get all active issue (pending and processing)
     @GetMapping(value = "/issues")
     public ResponseEntity getAllActiveIssues() {
         return service.getIssueInfo();
     }
 
-    //Get all active receipt
+    //Get all active receipt (pending)
     @GetMapping(value = "/receipts")
     public ResponseEntity getAllActiveReceipt() {
         return service.getReceiptInfo();
     }
 
+    //Suggest box using dijkstra and weighted average number
     @PostMapping(value = "/dijkstra")
-    public ResponseEntity sortIssueInvoiceItem(@RequestBody RequestAlgortihm request) {
-        List<InvoiceInfoItem> invoices = request.getInvoiceInfoItems();
-        return service.sortIssueInvoiceItem(invoices);
+    public ResponseEntity suggestBox(@RequestBody InvoiceInfoItem request) {
+//        List<InvoiceInfoItem> invoices = request.getInvoiceInfoItems();
+//        InvoiceInfoItem invoice = invoices.get(0);
+        return service.sortIssueInvoiceItem(request);
     }
 
 }

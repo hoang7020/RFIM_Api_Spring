@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.4'
+    compile group: 'joda-time', name: 'joda-time', version: '2.3'
+
 }

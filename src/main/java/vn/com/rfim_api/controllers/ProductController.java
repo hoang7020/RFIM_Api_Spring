@@ -19,10 +19,12 @@ public class ProductController {
         return service.getAll();
     }
 
-    //Get product by box id
+    //Get product by box rfid
+    //Check box info
+    //Check box is missing
     @GetMapping(value = "/products/boxes/{id}")
-    public ResponseEntity getProudctByBoxId(@PathVariable("id") String id) {
-        return service.getProductByBoxRfid(id);
+    public ResponseEntity checkBoxInfo(@PathVariable("id") String id) {
+        return service.checkBoxInfo(id);
     }
 
 }

@@ -21,7 +21,12 @@ public class PackageController {
     //Map package with product
     @PostMapping(value = "/packages/register")
     public ResponseEntity registerPackage(@RequestBody RequestPackageInfo request) {
-        return service.registerPackage(request.getInvoiceId(), request.getPackageRfid(), request.getProductId(), request.getInvoiceStatus(), request.getBoxRfids());
+        return service.registerPackage(request.getInvoiceId(),
+                request.getPackageRfid(),
+                request.getProductId(),
+                request.getInvoiceStatus(),
+                request.getBoxRfids(),
+                request.getDate());
     }
 
     //Get package by package rfid
@@ -31,26 +36,26 @@ public class PackageController {
     }
 
     //Stock in Package by mapping package with cell id
-    @PostMapping(value = "/packages/stockin")
+    @PutMapping(value = "/packages/stockin")
     public ResponseEntity stockIn(@RequestBody PackageDTO pac) {
         return service.stockIn(pac.getPackageRfid(), pac.getCellId(), pac.getDate());
     }
 
     //Stock out box by remove box
-    @PostMapping(value = "/packages/stockout")
+    @DeleteMapping(value = "/packages/stockout")
     public ResponseEntity stockOut(@RequestBody RequestStockoutInfo request) {
 //        return ResponseEntity.ok(request);
         return service.stockOut(request.getBoxRfids(), request.getInvoiceId());
     }
 
     //Transfer package by update cell rfid
-    @PostMapping(value = "/packages/transfer_package")
+    @PutMapping(value = "/packages/transfer_package")
     public ResponseEntity transferPackages(@RequestBody PackageDTO pac) {
         return service.transferPackage(pac.getPackageRfid(), pac.getCellId());
     }
 
     //Transfer box between packaged by update package rfid
-    @PostMapping(value = "/packages/transfer_boxes")
+    @PutMapping(value = "/packages/transfer_boxes")
     public ResponseEntity transferBoxes(@RequestBody RequestPackageInfo request) {
         System.out.println(request.getPackageRfid());
         return service.transferBoxes(request.getPackageRfid(), request.getBoxRfids());

@@ -20,7 +20,7 @@ public class CellController {
     }
 
     //Register cell with rfid tag
-    @PostMapping(value = "/cells/register")
+    @PutMapping(value = "/cells/register")
     public ResponseEntity registerCell(@RequestBody CellDTO cell) {
         return service.registerCell(cell.getCellId(), cell.getCellRfid());
     }
@@ -29,5 +29,11 @@ public class CellController {
     @GetMapping(value = "/cells/rfid/{id}")
     public ResponseEntity getCellByCellRfid(@PathVariable("id") String id) {
         return service.getCellByCellRfid(id);
+    }
+
+    //Check cell is empty or not
+    @GetMapping(value = "/cells/checking/{id}")
+    public ResponseEntity checkCellIsEmpty(@PathVariable("id") String id) {
+        return service.isEmpty(id);
     }
 }

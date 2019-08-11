@@ -13,6 +13,7 @@ public class BoxController {
     @Autowired
     private BoxService service;
 
+    //Get box's rfid by using product id
     @GetMapping(value = "/boxes/products/{id}")
     public ResponseEntity getBoxRfidsByProductId(@PathVariable("id") String id) {
         return service.getBoxRfidsByProductId(id);

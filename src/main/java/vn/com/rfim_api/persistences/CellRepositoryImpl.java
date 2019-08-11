@@ -27,7 +27,7 @@ public class CellRepositoryImpl implements CellRepository {
     @Override
     public List<Cell> getByFloorId(String floorId) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Cell C where C.floor.floorId = :id", Cell.class);
+        Query query = session.createQuery("from Cell C where C.floor.floorId = :id and Status ='1'", Cell.class);
         query.setParameter("id", floorId);
         List<Cell> cells = query.getResultList();
         return cells;
@@ -52,7 +52,7 @@ public class CellRepositoryImpl implements CellRepository {
     public Cell getByCellRfid(String rfid) {
         Session session = this.sessionFactory.getCurrentSession();
         try {
-            Query query = session.createQuery("from Cell where cellRfid = :rfid");
+            Query query = session.createQuery("from Cell where cellRfid = :rfid and Status = '1'");
             query.setParameter("rfid", rfid);
             Cell cell = (Cell) query.getSingleResult();
             if (cell != null) {

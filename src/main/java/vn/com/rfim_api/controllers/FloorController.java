@@ -17,17 +17,6 @@ public class FloorController {
     @Autowired
     private FloorService service;
 
-    //Get all floors
-    @GetMapping(value = "/floors")
-    public ResponseEntity getAllFloors() {
-        List<FloorDTO> floors = service.getAll();
-        if (floors.size() > 0) {
-            return new ResponseEntity(floors, HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
-        }
-    }
-
     //get floors by shelf id
     @GetMapping(value = "/floors/{id}")
     public ResponseEntity getFloorByShelfId(@PathVariable("id") String id) {

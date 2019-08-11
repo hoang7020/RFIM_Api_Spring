@@ -16,7 +16,11 @@ public class StocktakeHistory {
 
     private int quantity;
 
-    private String description;
+    private boolean status;
+
+    private String lostBox;
+
+    private String foundBox;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
@@ -25,10 +29,6 @@ public class StocktakeHistory {
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
     private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "stocktakeTypeId", nullable = false)
-    private StocktakeType stocktakeType;
 
     public int getStocktakeHistoryId() {
         return stocktakeHistoryId;
@@ -54,12 +54,28 @@ public class StocktakeHistory {
         this.quantity = quantity;
     }
 
-    public String getDescription() {
-        return description;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getLostBox() {
+        return lostBox;
+    }
+
+    public void setLostBox(String lostBox) {
+        this.lostBox = lostBox;
+    }
+
+    public String getFoundBox() {
+        return foundBox;
+    }
+
+    public void setFoundBox(String foundBox) {
+        this.foundBox = foundBox;
     }
 
     public User getUser() {
@@ -76,13 +92,5 @@ public class StocktakeHistory {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public StocktakeType getStocktakeType() {
-        return stocktakeType;
-    }
-
-    public void setStocktakeType(StocktakeType stocktakeType) {
-        this.stocktakeType = stocktakeType;
     }
 }

@@ -24,7 +24,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public List<Product> getAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        List<Product> products = session.createQuery("from Product", Product.class).getResultList();
+        Query query = session.createQuery("from Product where Status = 'true'", Product.class);
+        List<Product> products = query.getResultList();
         return products;
     }
 
@@ -61,7 +62,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
         return product;
     }
-
 
 
 }

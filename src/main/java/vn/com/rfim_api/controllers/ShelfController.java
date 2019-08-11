@@ -13,18 +13,16 @@ public class ShelfController {
     @Autowired
     private ShelfService service;
 
-    @RequestMapping(value = "/shelves", method = RequestMethod.GET)
+    //Get all shelves
+    @GetMapping(value = "/shelves")
     public ResponseEntity getAllShelves() {
         return service.getAll();
     }
 
+    //Get shelves by floor id
     @GetMapping(value = "/shelves/floors/{id}")
     public ResponseEntity getShelfByCellId(@PathVariable("id") String id) {
         return service.getShelfByFloorId(id);
     }
 
-    @GetMapping(value = "/test")
-    public ResponseEntity test() {
-        return new ResponseEntity(PropertiesUtil.getString("no_shelf_found"), HttpStatus.OK);
-    }
 }

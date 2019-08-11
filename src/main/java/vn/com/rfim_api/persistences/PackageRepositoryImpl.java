@@ -129,10 +129,24 @@ public class PackageRepositoryImpl implements PackageRepository {
         Session session = this.sessionFactory.getCurrentSession();
         Query query = session.createQuery("from Package P where ProductId = :productId order by Date");
         query.setParameter("productId", productId);
-        List<Package> pac = query.getResultList();
-        if (pac.size() > 0) {
-            return pac.get(0);
+        List<Package> packages = query.getResultList();
+        if (packages.size() > 0) {
+            return packages.get(0);
         }
         return null;
     }
+
+
+    //Get package by cell id
+//    @Override
+//    public Package getByCellId(String cellId) {
+//        Session session = this.sessionFactory.getCurrentSession();
+//        Query query = session.createQuery("from Package where cellId = :cellId");
+//        query.setParameter("cellId", cellId);
+//        List<Package> packages = query.getResultList();
+//        if (packages.size() > 0) {
+//            return packages.get(0);
+//        }
+//        return null;
+//    }
 }

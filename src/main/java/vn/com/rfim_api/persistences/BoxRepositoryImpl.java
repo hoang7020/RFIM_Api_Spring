@@ -13,6 +13,7 @@ import vn.com.rfim_api.persistences.entities.Package;
 import vn.com.rfim_api.persistences.entities.Product;
 import vn.com.rfim_api.persistences.repositories.BoxRepository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class BoxRepositoryImpl implements BoxRepository {
     //Add a list of box
     //Map all box with package id
     @Override
-    public void addBatchBox(List<String> boxRfids, String packageId, String productId) {
+    public void addBatchBox(List<String> boxRfids, String packageId, String productId, Date date) {
         Session session = this.sessionFactory.getCurrentSession();
         for (String rfid : boxRfids) {
             Box newbox = new Box();
@@ -34,6 +35,8 @@ public class BoxRepositoryImpl implements BoxRepository {
             newbox.setProduct(session.get(Product.class, productId));
             Package pac = session.load(Package.class, packageId);
             newbox.setaPackage(pac);
+            newbox.setDate(date);
+            newbox.setStatus(true);
             session.save(newbox);
             session.flush();
         }
@@ -93,5 +96,24 @@ public class BoxRepositoryImpl implements BoxRepository {
         query.setParameter("productId", productId);
         List<String> boxRfids = query.getResultList();
         return boxRfids;
+    }
+
+    @Override
+    public Box getEarliestBoxByProductId(String productId) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Box where ProductId = :productId order by Date");
+        query.setParameter("productId", productId);
+        List<Box> boxes = query.getResultList();
+        if (boxes.size() > 0) {
+            return boxes.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public Box isMissing(String boxRfid) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Box box = session.get(Box.class, boxRfid);
+        return box;
     }
 }

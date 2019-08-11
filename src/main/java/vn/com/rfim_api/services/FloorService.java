@@ -21,11 +21,6 @@ public class FloorService {
     @Autowired
     private ModelMapper mapper;
 
-    public List<FloorDTO> getAll() {
-        List<FloorDTO> floors = mapper.map(context.getAll(), new TypeToken<List<FloorDTO>>(){}.getType());
-        return floors;
-    }
-
     //Get floor by shelf id
     public ResponseEntity getFloorByShelfId(String shelfId) {
         List<FloorDTO> floors = mapper.map(context.getByShelfId(shelfId), new TypeToken<List<FloorDTO>>(){}.getType());

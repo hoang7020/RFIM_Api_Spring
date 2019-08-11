@@ -15,19 +15,21 @@ public class Product {
 
     private String productName;
 
-    private int weight;
+    private Integer weight;
 
     private String image;
 
     private String description;
 
-    private int height;
+    private Integer height;
 
-    private int width;
+    private Integer width;
 
-    private int length;
+    private Integer length;
 
     private int quantityPerBox;
+
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "categoryId", nullable = false)
@@ -61,11 +63,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -85,27 +87,27 @@ public class Product {
         this.description = description;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(Integer length) {
         this.length = length;
     }
 
@@ -115,6 +117,14 @@ public class Product {
 
     public void setQuantityPerBox(int quantityPerBox) {
         this.quantityPerBox = quantityPerBox;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Category getCategory() {

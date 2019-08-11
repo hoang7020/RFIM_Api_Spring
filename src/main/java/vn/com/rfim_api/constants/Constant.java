@@ -13,8 +13,10 @@ public class Constant {
     public static final String TRANSFER_PACKAGE_FAIL = "Transfer package fail.";
     public static final String TRANSFER_BOX_SUCCESSFULLY = "Transfer boxes successfully.";
     public static final String TRANSFER_BOX_FAIL = "Transfer boxes fail.";
-    public static final String CELL_NOT_EXIT = "Cell is not registered.";
+    public static final String CELL_NOT_ACCESSIBLE = "Cell is not accessible.";
     public static final String BOX_NOT_EXIT = "Box's information not found.";
+    public static final String CELL_NOT_EMPTY = "Cell is not empty.";
+    public static final String MISSING_BOX = "This box is missing.";
 
 
     //message from cell api
@@ -23,4 +25,6 @@ public class Constant {
 
     //message form user api
     public static final String LOGIN_FAIL = "Username or Password are not correct.";
+
+
 }

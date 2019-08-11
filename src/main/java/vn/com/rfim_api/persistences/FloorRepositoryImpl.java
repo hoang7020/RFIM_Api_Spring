@@ -19,18 +19,11 @@ public class FloorRepositoryImpl implements FloorRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    @Override
-    public List<Floor> getAll() {
-        Session session = this.sessionFactory.getCurrentSession();
-        List<Floor> floors = session.createQuery("from Floor", Floor.class).getResultList();
-        return floors;
-    }
-
     //get floor by shelf id
     @Override
     public List<Floor> getByShelfId(String shelfId) {
         Session session = this.sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Floor F where F.shelf.shelfId = :id", Floor.class);
+        Query query = session.createQuery("from Floor F where F.shelf.shelfId = :id and Status = '1'", Floor.class);
         query.setParameter("id", shelfId);
         List<Floor> floors = query.getResultList();
         return floors;

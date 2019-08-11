@@ -16,6 +16,7 @@ import vn.com.rfim_api.persistences.repositories.PackageRepository;
 import vn.com.rfim_api.services.dtos.PackageDTO;
 import vn.com.rfim_api.services.jsonobjects.ResponseMesasge;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -35,12 +36,12 @@ public class PackageService {
     private ModelMapper mapper;
 
     //Create new packaged by using rfid id and map with product id
-    public ResponseEntity registerPackage(String invoiceId, String packageId, String productId, int invoiceStatus,  List<String> boxRfids) {
+    public ResponseEntity registerPackage(String invoiceId, String packageId, String productId, int invoiceStatus, List<String> boxRfids, Date date) {
         ResponseMesasge response = new ResponseMesasge();
         if (!packageContext.isExit(packageId)) {
             packageContext.addPackage(packageId, productId);
         }
-        boxContext.addBatchBox(boxRfids, packageId, productId);
+        boxContext.addBatchBox(boxRfids, packageId, productId, date);
         InvoiceProduct invoiceProduct = invoiceProductContext.getByInvoiceIdAndProductId(invoiceId, productId);
         if (invoiceProduct.getProcessQuantity() < invoiceProduct.getQuantity()) {
             if (invoiceStatus == 1) {
@@ -80,6 +81,7 @@ public class PackageService {
     }
 
     //Check package is registerd or not
+    //Get package info by pacakge's RFID
     public ResponseEntity getPackageByPackageRfid(String packageRfid) {
         ResponseMesasge response = new ResponseMesasge();
         Package pac = packageContext.getByPackageRfid(packageRfid);
@@ -135,11 +137,12 @@ public class PackageService {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    //Check Receipt is complete or not
     private boolean isReceiptInvoiceCompleted(String invoiceId) {
         List<InvoiceProduct> invoiceProducts = invoiceProductContext.getByInvoiceId(invoiceId);
         int sumQuantity = 0;
         int sumProcessQuantity = 0;
-        for (InvoiceProduct ip: invoiceProducts) {
+        for (InvoiceProduct ip : invoiceProducts) {
             sumQuantity += ip.getQuantity();
             sumProcessQuantity += ip.getProcessQuantity();
         }
@@ -150,5 +153,4 @@ public class PackageService {
             return false;
         }
     }
-
 }

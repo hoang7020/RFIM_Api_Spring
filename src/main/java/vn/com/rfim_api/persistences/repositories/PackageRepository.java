@@ -24,4 +24,6 @@ public interface PackageRepository {
 
     public Package getEarliesPackageByProductId(String productId);
 
+//    public Package getByCellId(String cellId);
+
 }

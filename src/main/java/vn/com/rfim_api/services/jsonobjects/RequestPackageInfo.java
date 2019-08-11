@@ -1,5 +1,6 @@
 package vn.com.rfim_api.services.jsonobjects;
 
+import java.sql.Date;
 import java.util.List;
 
 public class RequestPackageInfo {
@@ -8,6 +9,7 @@ public class RequestPackageInfo {
     private String packageRfid;
     private int invoiceStatus;
     private List<String> boxRfids;
+    private Date date;
 
     public String getInvoiceId() {
         return invoiceId;
@@ -47,5 +49,13 @@ public class RequestPackageInfo {
 
     public void setBoxRfids(List<String> boxRfids) {
         this.boxRfids = boxRfids;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

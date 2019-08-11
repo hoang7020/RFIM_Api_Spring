@@ -13,6 +13,8 @@ public class Cell {
 
     private String cellRfid;
 
+    private boolean status;
+
     @ManyToOne
     @JoinColumn(name = "floorId", nullable = false)
     private Floor floor;
@@ -34,6 +36,14 @@ public class Cell {
 
     public void setCellRfid(String cellRfid) {
         this.cellRfid = cellRfid;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Floor getFloor() {

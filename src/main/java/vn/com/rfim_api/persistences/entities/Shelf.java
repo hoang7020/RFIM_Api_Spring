@@ -21,8 +21,19 @@ public class Shelf {
 
     private int coorY;
 
+    private boolean status;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shelf")
     private List<Floor> listFloor = new ArrayList<>();
+
+//    public Shelf() {
+//    }
+//
+//    public Shelf(String shelfId, int coorX, int coorY) {
+//        this.shelfId = shelfId;
+//        this.coorX = coorX;
+//        this.coorY = coorY;
+//    }
 
     public String getShelfId() {
         return shelfId;
@@ -70,6 +81,14 @@ public class Shelf {
 
     public void setCoorY(int coorY) {
         this.coorY = coorY;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public List<Floor> getListFloor() {

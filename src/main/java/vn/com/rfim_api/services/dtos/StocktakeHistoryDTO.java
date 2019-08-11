@@ -17,7 +17,9 @@ public class StocktakeHistoryDTO {
 
     private Timestamp date;
 
-    private String description;
+    private String lostBox;
+
+    private String foundBox;
 
 
     public StocktakeHistoryDTO() {
@@ -71,11 +73,19 @@ public class StocktakeHistoryDTO {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLostBox() {
+        return lostBox;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLostBox(String lostBox) {
+        this.lostBox = lostBox;
+    }
+
+    public String getFoundBox() {
+        return foundBox;
+    }
+
+    public void setFoundBox(String foundBox) {
+        this.foundBox = foundBox;
     }
 }
