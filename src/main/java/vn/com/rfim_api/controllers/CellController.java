@@ -20,7 +20,7 @@ public class CellController {
     }
 
     //Register cell with rfid tag
-    @PutMapping(value = "/cells/register")
+    @PutMapping(value = "/cell/register")
     public ResponseEntity registerCell(@RequestBody CellDTO cell) {
         return service.registerCell(cell.getCellId(), cell.getCellRfid());
     }

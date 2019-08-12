@@ -18,7 +18,7 @@ public class FloorController {
     private FloorService service;
 
     //get floors by shelf id
-    @GetMapping(value = "/floors/{id}")
+    @GetMapping(value = "/floor/{id}")
     public ResponseEntity getFloorByShelfId(@PathVariable("id") String id) {
         return service.getFloorByShelfId(id);
     }
