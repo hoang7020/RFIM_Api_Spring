@@ -70,8 +70,6 @@ public class ShortestPathAlgorithm {
                     dist[v] = dist[u] + graph[u][v];
         }
 
-        // print the constructed distance array
-//        printSolution(dist, V);
         return dist;
     }
 }

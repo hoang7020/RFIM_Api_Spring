@@ -39,20 +39,6 @@ public class ProductService {
         }
     }
 
-//    //Get product by category id
-//    public ResponseEntity getProductsByCategoryId(String categoryId) {
-//        ResultResponse response = new ResultResponse();
-//        List<ProductDTO> products = mapper.map(context.getByCategoryId(categoryId), new TypeToken<List<ProductDTO>>() {
-//        }.getType());
-//        if (products.size() > 0) {
-//            response.setData(new ProductData(products));
-//            return new ResponseEntity(response, HttpStatus.OK);
-//        } else {
-//            response.setMessage("No Product Found!");
-//            return new ResponseEntity(response, HttpStatus.NO_CONTENT);
-//        }
-//    }
-
     //Get product by box rfid
     //Check box info
     //Check box is missing

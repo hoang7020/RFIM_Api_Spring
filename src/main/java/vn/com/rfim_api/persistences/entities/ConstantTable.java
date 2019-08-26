@@ -16,6 +16,10 @@ public class ConstantTable {
 
     private String sourceShelfId;
 
+    private int columnDistance;
+
+    private int rowDistance;
+
     public int getConstantId() {
         return constantId;
     }
@@ -46,5 +50,21 @@ public class ConstantTable {
 
     public void setSourceShelfId(String sourceShelfId) {
         this.sourceShelfId = sourceShelfId;
+    }
+
+    public int getColumnDistance() {
+        return columnDistance;
+    }
+
+    public void setColumnDistance(int columnDistance) {
+        this.columnDistance = columnDistance;
+    }
+
+    public int getRowDistance() {
+        return rowDistance;
+    }
+
+    public void setRowDistance(int rowDistance) {
+        this.rowDistance = rowDistance;
     }
 }

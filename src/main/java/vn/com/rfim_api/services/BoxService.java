@@ -25,7 +25,6 @@ public class BoxService {
 
     //Get all box rfids by product id
     public ResponseEntity getBoxRfidsByProductId(String productId) {
-        ResponseMesasge mesasge = new ResponseMesasge();
         List<String> boxRfids = boxContext.getByProductId(productId);
         if (boxRfids.size() > 0) {
             return new ResponseEntity(boxRfids, HttpStatus.OK);

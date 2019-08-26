@@ -14,7 +14,7 @@ public class ShelfGraphConverter {
         graph = new int[shelves.size()][shelves.size()];
     }
 
-    public int[][] drawGraph() {
+    public int[][] drawGraph(int columnDistance, int rowDistance) {
         for (int i = 0; i < shelves.size(); i++) {
             for (int j = 0; j < shelves.size(); j++) {
                 int absX = Math.abs(shelves.get(i).getCoorX() - shelves.get(j).getCoorX());
@@ -28,13 +28,13 @@ public class ShelfGraphConverter {
 //                }
                 if(absX == 0 && absY != 0) {
                    if (absY <= 1) {
-                       graph[i][j] = absY * 2;
+                       graph[i][j] = absY * columnDistance;
                    } else {
                        graph[i][j] = 0;
                    }
                 } else if (absX != 0 && absY == 0){
                     if (absX <= 1) {
-                        graph[i][j] = absX * 1;
+                        graph[i][j] = absX * rowDistance;
                     } else {
                         graph[i][j] = 0;
                     }

@@ -19,6 +19,5 @@ public class UserController {
     @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody UserDTO request) {
         return service.login(request.getUsername(), request.getPassword());
-//        return ResponseEntity.ok(request.getUsername() + request.getPassword());
     }
 }

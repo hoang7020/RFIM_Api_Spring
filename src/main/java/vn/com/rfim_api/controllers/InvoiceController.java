@@ -36,8 +36,6 @@ public class InvoiceController {
     //Suggest box using dijkstra and weighted average number
     @PostMapping(value = "/dijkstra")
     public ResponseEntity suggestBox(@RequestBody InvoiceInfoItem request) {
-//        List<InvoiceInfoItem> invoices = request.getInvoiceInfoItems();
-//        InvoiceInfoItem invoice = invoices.get(0);
         return service.sortIssueInvoiceItem(request);
     }
 
